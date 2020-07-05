@@ -29,7 +29,7 @@ if (isset($question_id)&&isset($question_content_id)) {
 	        	exit();
 	        }
 	        else{
-	        	mysqli_stmt_bind_param($stmt,"iss",$id,$question_id,$answer);
+	        	mysqli_stmt_bind_param($stmt,"ssss",$id,$question_id,$answer);
 				mysqli_stmt_execute($stmt);
 	        }
 
@@ -56,7 +56,7 @@ if (isset($question_id)&&isset($question_content_id)) {
 
         // first of all check if child has already answerd
 
-        $sqll = "SELECT * FROM answer WHERE  id = $Id";
+        $sqll = "SELECT * FROM answer WHERE  id = '$Id'";
         $resullt = mysqli_query($conn,$sqll);
          if(mysqli_num_rows($resullt)==1){
            $sql4 = "UPDATE answer set answer = '$answer' WHERE id = '$Id' ";
@@ -74,7 +74,7 @@ if (isset($question_id)&&isset($question_content_id)) {
 				mysqli_stmt_execute($stmt);
 	        }
 
-	        $sql2 = "UPDATE question_content set status = 'ANSWERED' WHERE id = $Id";
+	        $sql2 = "UPDATE question_content set status = 'ANSWERED' WHERE id = '$Id'";
             $result2 = mysqli_query($conn,$sql2);
         }
             $sql3 ="SELECT * FROM question_content WHERE status = 'UNANSWERED' AND question_id = '$question_content_id'";
