@@ -35,13 +35,13 @@
        <div class="col-md-4">
         <div class="pray text-center  shadow-sm p-3 mb-5 bg-white rounded">
           <img src="../images/tick.webp" alt="image" height="120px"><br><br>
-          <a href="#" class="btn btn-primary py-2 px-8">ANSWERED QUESTIONS</a>
+          <a href="#" class="btn btn-primary py-2 px-8"> QUESTIONS</a>
         </div>
     </div>
       <div class="col-md-4">
         <div class="pray text-center  shadow-sm p-3 mb-5 bg-white rounded">
           <img src="../images/cross.png" alt="image" height="120px"><br><br>
-          <a href="#" class="btn btn-primary py-2 px-8">UNANSWERED QUESTIONS</a>
+          <a href="#" class="btn btn-primary py-2 px-8">CORRECTION</a>
         </div>
     </div>
     </div>

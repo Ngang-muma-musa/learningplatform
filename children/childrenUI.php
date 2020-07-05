@@ -26,8 +26,8 @@
            <div class="row p-4">
                 <div class="col-md-4">
                     <div class="pray text-center  shadow-sm p-3 mb-5 bg-white rounded">
-                      <img src="../images/cross.png" alt="image" height="120px"><br><br>
-                      <a href="#" class="btn btn-primary py-2 px-8">INCOMPLETED LESSON</a>
+                      <img src="../images/home1.png" alt="image" height="120px"><br><br>
+                      <a href="#" class="btn btn-primary py-2 px-8">HOME</a>
                     </div>
                 </div>
                    <div class="col-md-4">
@@ -39,7 +39,7 @@
                   <div class="col-md-4">
                     <div class="pray text-center  shadow-sm p-3 mb-5 bg-white rounded">
                       <img src="../images/qa.png" alt="image" height="120px"><br><br>
-                      <a href="questions.php" class="btn btn-primary py-2 px-8">LESSON QUESTIONS</a>
+                      <a href="questions.php" class="btn btn-primary py-2 px-8">QUESTIONS</a>
                     </div>
                 </div>
            </div>

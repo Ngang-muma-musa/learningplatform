@@ -174,7 +174,7 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
                     <?php 
                        $i=0;
                        foreach($result as $row){
-                       echo $id = $row['id'];
+                        $id = $row['id'];
                         $question_id = $row['lesson_id'];
                           $content = $row['content'];
                         $active = '';

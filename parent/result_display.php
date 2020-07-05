@@ -1,5 +1,4 @@
 <?php 
-session_start();
 require "../includes/db.inc.php";
 if (isset($_GET['type'])&&isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -66,9 +65,6 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
     		#hide{
     			display: none;
     		}
-        .id{
-          display: none;
-        }
         h2{
           color: white;
         }
@@ -85,21 +81,36 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
           	   $content = $row['content'];
           	   ?>
           	   <div class="row">
+                <?php 
+                
+                $sql3 = "SELECT * FROM answer WHERE id = $id";
+                $result3 = mysqli_query($conn,$sql3);
+                while($rows = mysqli_fetch_assoc($result3)){
+                $answer = $rows['answer'];
+                }
+
+                ?>
           	   	<div class="col-md-2"></div>
           	   	<div class="col-md-8 shadow-sm p-3 mb-5 bg-white rounded">
           	   		<h1 class="text-center"><?php echo $instruction; ?></h1><br>
           	   		<h5 class="text-center"><?php echo $content;?></h5><br>
           	   		<div class="button">
-          	   			<button onclick="myHide()" class="btn btn-primary left"> ANSWER QUESTION </button>
+          	   			<button onclick="myHide()" class="btn btn-primary left"> VIEW ANSWER</button>
           	   		</div><br>
           	   		<div id="hide">
+                    <label for="question_description">ANSWER</label>
+                    <textarea class="form-control" id="answer" name="answer" rows="3" placeholder="<?php echo $answer; ?>" ></textarea><br>
+                    <button class="btn btn-success">CORRECT</button>
+                    <button class="btn btn-danger">Wrong</button><br><br>
+                  
           	   		<form class="md-form" method="post" action="children_includes/question_display.inc.php">
           	   			<div class="form-grop">
-						<label for="question_description">Type Answer Here</label>
-						<textarea class="form-control" id="answer" name="answer" rows="3" placeholder="type answer..." ></textarea>
+						<label for="question_description">Type Correction here if answer was wrong</label>
+						<textarea class="form-control" id="answer" name="answer" rows="3" placeholder="type Correction..." ></textarea>
 					</div><br>
 					<button class="btn btn-primary btnn" type="submit" name="submit_ans">SUBMIT</button>
           	   		</form>
+                  </div><br>
           	   		</div>
           	   	</div>
           	   	<div class="col-md-2"></div>
@@ -107,9 +118,8 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
           	   <?php
             }
             
-          
+          session_start();
           $_SESSION['id'] = $id;
-          $_SESSION['type'] = $type;
           $_SESSION['question_id'] = $question_id ;
           $_SESSION['timestamp_id'] = $timestamp_id;
           $_SESSION['question_content_id'] =  $question_content_id;
@@ -135,7 +145,7 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
           	   			
           	   		</div><br>
           	   		<div class="button">
-          	   			<button onclick="myHide()" class="btn btn-primary left"> ANSWER QUESTION </button>
+          	   			<button onclick="myHide()" class="btn btn-primary left"> VIEW ANSWER</button>
           	   		</div><br>
           	   		<div id="hide">
           	   		<form class="md-form" method="post" action="children_includes/question_display.inc.php">
@@ -152,9 +162,8 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
           	   <?php
             }
 
-           
+            session_start();
             $_SESSION['id'] = $id;
-            $_SESSION['type'] = $type;
             $_SESSION['question_id'] = $question_id ;
             $_SESSION['timestamp_id'] = $timestamp_id;
             $_SESSION['question_content_id'] =  $question_content_id;
@@ -177,7 +186,7 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
           	   		<div class="button">
           	   			<button class="btn btn-primary">  < PREVIOUS </button>
           	   			<button class="btn btn-primary">  NEXT > </button>
-          	   			<button onclick="myHide()" class="btn btn-primary left"> ANSWER QUESTION </button>
+          	   			<button onclick="myHide()" class="btn btn-primary left">VIEW ANSWER</button>
           	   		</div>
           	   		<div id="hide">
           	   		<form class="md-form" method="post" action="children_includes/question_display.inc.php">
@@ -194,9 +203,8 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
           	   <?php
             }
 
-          
+          session_start();
           $_SESSION['id'] = $id;
-          $_SESSION['type'] = $type;
           $_SESSION['question_id'] = $question_id ;
           $_SESSION['timestamp_id'] = $timestamp_id;
           $_SESSION['question_content_id'] =  $question_content_id;
@@ -206,7 +214,6 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
 
 
                       elseif($type == "IMAGE"){
-                        $array = array();
 
              ?>
                <div class="row">
@@ -217,33 +224,31 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
 
                     <!-- carouel starts -->
 
-                    <div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">   
+                    <div id="demo" class="carousel slide" data-ride="carousel">   
 
                       <!-- Indicators -->
-                  <ul class="carousel-indicators id">
-                    <?php 
-                       $i=0;
-                       foreach ($result as $row) {
-                        $active = '';
-                        if($i == 0){
-                             $active = 'active';
-                        }
-                    ?>
-                    
-                      <li data-target="#demo" data-slide-to="<?php echo $i;?>" class="<?php echo $active;?>"></li>
-                     <?php $i++;}?>
-                    </ul>
+                    <ul class="carousel-indicators">
+                      <?php 
+                         $i=0;
+                         foreach ($result as $row) {
+                            $active = '';
+                            if($i == 0){
+                               $active = 'active';
+                            }
+                      ?>
+                      
+                        <li data-target="#demo" data-slide-to="<?php echo $i;?>" class="<?php echo $active;?>"></li>
+                       <?php $i++;}?>
+                      </ul>
 
                       <!-- The slideshow -->
                       <div class="carousel-inner">
                       <?php 
                          $i=0;
                          foreach($result as $row){
-                            $id = $row['id'];
-                            $array[$i] = $id;
+                         echo $id = $row['id'];
+                            $question_id = $row['question_id'];
                             $content = $row['content'];
-                            $timestamp_id = $row['timestamp_id'];
-                            $question_content_id = $row['question_id'];
                             $active = '';
                             if($i == 0){
                                $active = 'active';
@@ -251,47 +256,48 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
                       ?>
                           <?php echo$id;?>
                         <div class="carousel-item <?= $active;?>">
-                          <img src="../uploads/<?= $row['content'];?>" id="<?php echo $active; ?>" class="img-responsive" height="400" width="100%">
+                          <img src="../uploads/<?= $row['content'];?>" height="400" width="100%">
                         </div>
                      
                        <?php $i++;}?>
                       </div>
+                      <!-- Left and right controls -->
+                      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                      </a>
+                      <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                      </a>
 
                     </div>
+
 
                       <!-- carousel ends -->
 
+
+                    
                     </div><br>
                     <div class="button">
-                      
-                        <button class="btn btn-primary" id="nextbtn" data-value="[<?php echo implode(',', $array); ?>]">  < PREVIOUS </button>
+                        <button class="btn btn-primary">  < PREVIOUS </button>
                         <button class="btn btn-primary">  NEXT > </button>
-                        <button onclick="myHide()" class="btn btn-primary left"> ANSWER QUESTION </button>
-                    </div><br>
+                        <button onclick="myHide()" class="btn btn-primary left">VIEW ANSWER</button>
+                    </div>
                     <div id="hide">
-                  
-                    <form class="md-form" method="post" action="children_includes/question_display.inc.php">
+                    <form class="md-form" method="post" action="">
                         <div class="form-grop">
-                          <input type='text' id="qId" value="<?php echo $array[0];?>" name="id" >
                         <label for="question_description">Type Answer Here</label>
                         <textarea class="form-control" id="answer" name="answer" rows="3" placeholder="type answer..." ></textarea>
-                        </div><br>
-                          <button class="btn btn-primary btnn" type="submit" name="submit_ans">SUBMIT</button>
-                      </form>
+                    </div><br>
+                    <button class="btn btn-primary btnn" type="submit" name="submit_ans">SUBMIT</button>
+                    </form>
                     </div>
-                    
                 </div>
                 <div class="col-md-2"></div>
                </div>
-            <?php
-
-            
-            $_SESSION['type'] = $type;
-            $_SESSION['question_id'] = $question_id ;
-            $_SESSION['timestamp_id'] = $timestamp_id;
-            $_SESSION['question_content_id'] =  $question_content_id;
+             <?php
           }
-          ?>
+    	?>
+    </div>
 
     <script type="text/javascript">	
     	function myHide() {
@@ -302,30 +308,6 @@ if (isset($_GET['type'])&&isset($_GET['id'])) {
     			x.style.display="none";
     		}
     	}
-      var x;
-      $(document).ready(function(){
-        $("#demo").carousel();
-
-        $("#nextbtn").on('click', function(e){
-          $("#demo").carousel("next");
-          var arrParam = $(this).data("value")
-          console.log("Array: "+ arrParam + " LEngth: "+arrParam.length);
-
-          var indicatorId = $('.carousel-indicators > li.active').data('slide-to');
-          console.log("current indicatorId: "+ indicatorId + " question_id: "+ arrParam[indicatorId]);  
-          var qid = document.getElementById('qId');
-          qId.value = arrParam[indicatorId];
-          if (indicatorId === arrParam.length) {
-            indicatorId = 0;
-          } else { 
-            indicatorId++;
-          }
-
-          $('.carousel-indicators > li.active').removeClass('active');
-          $('.carousel-indicators > li[data-slide-to="' + indicatorId + '"]').addClass('active');
-        });
-      });
-
     </script>
     </body>
     </html>

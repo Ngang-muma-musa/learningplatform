@@ -28,7 +28,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$lastName = $row['lastName'];
 }
 ?>
-<h1>Welcom <?php echo $firstName ." ".$lastName;?> </h1>
+<a href="question_upload.php">Question_upload</a><br>
+<a href="lesson_upload.php">lesson_upload</a><br>
+<a href="results.php">view results</a>
 </body>
 </html>
 
